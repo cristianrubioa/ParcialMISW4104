@@ -18,12 +18,17 @@ import { RouterModule } from '@angular/router';
 export class CafeListComponent implements OnInit {
 
   cafes: Cafe[] = [];
+  totalOrigen: number = 0; 
+  totalBlend: number = 0;
 
   constructor(private cafeService: CafeService) {}
 
   ngOnInit(): void {
     this.cafeService.getCafes().subscribe((data) => {
       this.cafes = data;
+
+      this.totalOrigen = this.cafes.filter(cafe => cafe.tipo === 'Café de Origen').length;
+      this.totalBlend = this.cafes.filter(cafe => cafe.tipo === 'Blend').length;
     });
   }
 }
